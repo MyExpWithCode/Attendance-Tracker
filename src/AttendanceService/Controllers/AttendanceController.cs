@@ -8,11 +8,13 @@ namespace AttendanceService.Controllers;
 [Route("api/[controller]")]
 public class AttendanceController : ControllerBase
 {
-    private readonly IAttendanceBusiness _attendanceBusiness;
+    private readonly IAttendanceService _attendanceBusiness;
+    private readonly IEmployeeService _employeeBusiness;
 
-    public AttendanceController(IAttendanceBusiness attendanceBusiness)
+    public AttendanceController(IAttendanceService attendanceBusiness, IEmployeeService employeeBusiness)
     {
         _attendanceBusiness = attendanceBusiness;
+        _employeeBusiness = employeeBusiness;
     }
 
     [HttpPost("checkin")]
@@ -21,7 +23,11 @@ public class AttendanceController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.EmployeeId))
             return BadRequest("EmployeeId is required.");
 
-        var record = await _attendanceBusiness.CheckInAsync(request.EmployeeId, request.EmployeeName);
+        var employee = await _employeeBusiness.GetByCodeAsync(request.EmployeeId);
+        if (employee == null)
+            return NotFound("Employee not found.");
+
+        var record = await _attendanceBusiness.CheckInAsync(request.EmployeeId);
         return Ok(record);
     }
 
@@ -61,7 +67,6 @@ public class AttendanceController : ControllerBase
 public class CheckInRequest
 {
     public string EmployeeId { get; set; } = string.Empty;
-    public string EmployeeName { get; set; } = string.Empty;
 }
 
 public class CheckOutRequest

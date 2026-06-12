@@ -4,22 +4,21 @@ using AttendanceService.DAL.Repositories;
 
 namespace AttendanceService.Business.Services;
 
-public class AttendanceBusiness : IAttendanceBusiness
+public class AttendanceService : IAttendanceService
 {
     private readonly IAttendanceRepository _repository;
 
-    public AttendanceBusiness(IAttendanceRepository repository)
+    public AttendanceService(IAttendanceRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<AttendanceRecord> CheckInAsync(string employeeId, string employeeName)
+    public async Task<AttendanceRecord> CheckInAsync(string employeeId)
     {
         var record = new AttendanceRecord
         {
             Id = Guid.NewGuid(),
             EmployeeId = employeeId,
-            EmployeeName = employeeName,
             CheckInTime = DateTime.UtcNow,
             Status = DateTime.UtcNow.Hour > 9 ? "Late" : "Present"
         };

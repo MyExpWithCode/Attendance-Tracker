@@ -21,9 +21,10 @@ public class EmployeeController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.EmployeeCode))
             return BadRequest("EmployeeCode is required.");
 
+        var joiningDate = DateOnly.FromDateTime(request.JoiningDate);
         var employee = await _employeeBusiness.CreateAsync(
             request.EmployeeCode, request.FirstName, request.LastName,
-            request.Email, request.Department, request.Designation, request.JoiningDate);
+            request.Email, request.Department, request.Designation, joiningDate);
 
         return CreatedAtAction(nameof(GetById), new { id = employee.Id }, employee);
     }
@@ -91,7 +92,7 @@ public class CreateEmployeeRequest
     public string Email { get; set; } = string.Empty;
     public string Department { get; set; } = string.Empty;
     public string Designation { get; set; } = string.Empty;
-    public DateOnly JoiningDate { get; set; }
+    public DateTime JoiningDate { get; set; }
 }
 
 public class UpdateEmployeeRequest

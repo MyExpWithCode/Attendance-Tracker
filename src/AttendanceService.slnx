@@ -1,5 +1,5 @@
 <Solution>
+  <Project Path="AttendanceService.Api/AttendanceService.Api.csproj" />
   <Project Path="AttendanceService.Business/AttendanceService.Business.csproj" />
   <Project Path="AttendanceService.DAL/AttendanceService.DAL.csproj" />
-  <Project Path="AttendanceService/AttendanceService.csproj" />
 </Solution>

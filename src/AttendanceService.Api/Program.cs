@@ -1,23 +1,14 @@
-using AttendanceService.Business.Interfaces;
+using AttendanceService.Business.Extensions;
 using AttendanceService.DAL.Connection;
+using AttendanceService.DAL.Extensions;
 using AttendanceService.DAL.Queries;
-using AttendanceService.DAL.Repositories;
-using AttendanceService.DAL.TypeHandlers;
 using Dapper;
-using AttendanceSvc = AttendanceService.Business.Services.AttendanceService;
-using EmployeeSvc = AttendanceService.Business.Services.EmployeeService;
-
-SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IDbConnectionFactory>(sp =>
-    new DbConnectionFactory(builder.Configuration.GetConnectionString("DefaultConnection")!));
-builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
-builder.Services.AddScoped<IAttendanceService, AttendanceSvc>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IEmployeeService, EmployeeSvc>();
+builder.Services.AddDataAccessLayer(builder.Configuration);
+builder.Services.AddBusinessLayer();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 

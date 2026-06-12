@@ -2,7 +2,7 @@ using AttendanceService.Business.Interfaces;
 using AttendanceService.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AttendanceService.Controllers;
+namespace AttendanceService.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

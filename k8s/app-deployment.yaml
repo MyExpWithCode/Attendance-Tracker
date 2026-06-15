@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: attendance-service
-          image: <your-dockerhub-username>/attendance-service:latest
+          image: nnitheshreddy/attendance-tracker:v1
           ports:
             - containerPort: 8080
           envFrom:

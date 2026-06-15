@@ -1,4 +1,5 @@
 using AttendanceService.Business.Interfaces;
+using AttendanceService.Business.Mappers;
 using AttendanceService.DAL.Models;
 using AttendanceService.DAL.Repositories;
 
@@ -15,19 +16,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<Employee> CreateAsync(string employeeCode, string firstName, string lastName, string email, string department, string designation, DateOnly joiningDate)
     {
-        var employee = new Employee
-        {
-            Id = Guid.NewGuid(),
-            EmployeeCode = employeeCode,
-            FirstName = firstName,
-            LastName = lastName,
-            Email = email,
-            Department = department,
-            Designation = designation,
-            JoiningDate = joiningDate,
-            IsActive = true,
-            CreatedAt = DateTime.UtcNow
-        };
+        var employee = EmployeeMapper.ToNewEmployee(employeeCode, firstName, lastName, email, department, designation, joiningDate);
 
         await _repository.AddAsync(employee);
         return employee;
@@ -39,12 +28,7 @@ public class EmployeeService : IEmployeeService
         if (employee == null)
             return null;
 
-        employee.FirstName = firstName;
-        employee.LastName = lastName;
-        employee.Email = email;
-        employee.Department = department;
-        employee.Designation = designation;
-        employee.UpdatedAt = DateTime.UtcNow;
+        EmployeeMapper.ApplyUpdate(employee, firstName, lastName, email, department, designation);
 
         await _repository.UpdateAsync(employee);
         return employee;

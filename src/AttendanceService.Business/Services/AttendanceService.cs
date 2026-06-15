@@ -1,4 +1,5 @@
 using AttendanceService.Business.Interfaces;
+using AttendanceService.Business.Mappers;
 using AttendanceService.DAL.Models;
 using AttendanceService.DAL.Repositories;
 
@@ -15,13 +16,7 @@ public class AttendanceService : IAttendanceService
 
     public async Task<AttendanceRecord> CheckInAsync(string employeeId)
     {
-        var record = new AttendanceRecord
-        {
-            Id = Guid.NewGuid(),
-            EmployeeId = employeeId,
-            CheckInTime = DateTime.UtcNow,
-            Status = DateTime.UtcNow.Hour > 9 ? "Late" : "Present"
-        };
+        var record = AttendanceMapper.ToNewCheckIn(employeeId);
 
         await _repository.AddAsync(record);
         return record;
@@ -33,11 +28,7 @@ public class AttendanceService : IAttendanceService
         if (record == null)
             return null;
 
-        record.CheckOutTime = DateTime.UtcNow;
-
-        var hoursWorked = (record.CheckOutTime.Value - record.CheckInTime).TotalHours;
-        if (hoursWorked < 4)
-            record.Status = "HalfDay";
+        AttendanceMapper.ApplyCheckOut(record);
 
         await _repository.UpdateAsync(record);
         return record;

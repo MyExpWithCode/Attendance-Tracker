@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 
         services.AddSingleton<IDbConnectionFactory>(sp =>
-            new DbConnectionFactory(configuration.GetConnectionString("DefaultConnection")!));
+            new DbConnectionFactory(configuration.GetConnectionString("AttendanceDbConnectionString")!));
         services.AddScoped<IAttendanceRepository, AttendanceRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 

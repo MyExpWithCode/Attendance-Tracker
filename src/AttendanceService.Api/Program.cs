@@ -1,3 +1,9 @@
+using AttendanceService.Business.Extensions;
+using AttendanceService.DAL.Connection;
+using AttendanceService.DAL.Extensions;
+using AttendanceService.DAL.Queries;
+using Dapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
@@ -6,7 +12,7 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Services.AddControllers();
-builder.Services.AddDataAccessLayer(builder.Configuration);
+builder.Services.AddDataAccessLayer(builder.Configuration, builder.Environment);
 builder.Services.AddBusinessLayer();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();

@@ -5,6 +5,7 @@ metadata:
   namespace: attendance
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/app-root: /swagger/index.html
 spec:
   ingressClassName: nginx
   rules:

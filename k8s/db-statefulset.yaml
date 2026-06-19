@@ -20,21 +20,23 @@ spec:
           ports:
             - containerPort: 5432
           env:
+            # User and DB name come from the ConfigMap (same keys the app uses).
             - name: POSTGRES_USER
               valueFrom:
-                secretKeyRef:
-                  name: attendance-db-secret
-                  key: POSTGRES_USER
+                configMapKeyRef:
+                  name: attendance-config
+                  key: DB_USER
+            # Password comes from the single secret key shared with the app.
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: attendance-db-secret
-                  key: POSTGRES_PASSWORD
+                  key: DB_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
-                secretKeyRef:
-                  name: attendance-db-secret
-                  key: POSTGRES_DB
+                configMapKeyRef:
+                  name: attendance-config
+                  key: DB_NAME
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data

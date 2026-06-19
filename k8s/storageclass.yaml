@@ -6,5 +6,5 @@ provisioner: pd.csi.storage.gke.io
 parameters:
   type: pd-standard
 reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: Immediate
 allowVolumeExpansion: true

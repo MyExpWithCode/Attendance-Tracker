@@ -1,30 +1,7 @@
 # Attendance-Tracker
 
-## Local Setup using Docker Compose
-
-### Prerequisites
-
-- Docker Desktop installed and running
-
-### Run
-
-```bash
-cd c:\nithesh\at
-docker-compose up --build
-```
-
-This starts:
-- **PostgreSQL** on `localhost:5433`
-- **Attendance Service API** on `http://localhost:5000`
-
-### Stop
-
-```bash
-docker-compose down
-```
-
-To also remove the database volume:
-
-```bash
-docker-compose down -v
-```
+- **Link for the code repository** - [Attendance-Tracker](https://github.com/MyExpWithCode/Attendance-Tracker)
+- **Docker hub URL for docker images** - [nnitheshreddy/attendance-tracker](https://hub.docker.com/r/nnitheshreddy/attendance-tracker)
+- **URL for Service API tier to view the records from backend tier**
+    - with IP - [34.11.176.68](http://34.11.176.68/swagger/index.html)
+    - With DNS -[at.naredla.space](http://at.naredla.space/swagger/index.html)

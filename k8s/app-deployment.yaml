@@ -4,7 +4,7 @@ metadata:
   name: attendance-service
   namespace: attendance
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -34,11 +34,11 @@ spec:
                   key: DB_PASSWORD
           resources:
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: 25m
+              memory: 96Mi
             limits:
-              cpu: 300m
-              memory: 256Mi
+              cpu: 250m
+              memory: 192Mi
           readinessProbe:
             httpGet:
               path: /swagger/index.html

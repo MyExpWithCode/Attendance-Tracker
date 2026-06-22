@@ -43,11 +43,11 @@ spec:
               subPath: pgdata
           resources:
             requests:
-              cpu: 200m
-              memory: 256Mi
+              cpu: 50m
+              memory: 128Mi
             limits:
-              cpu: 500m
-              memory: 512Mi
+              cpu: 250m
+              memory: 256Mi
           readinessProbe:
             exec:
               command:

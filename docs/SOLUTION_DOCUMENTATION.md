@@ -154,7 +154,7 @@ flowchart LR
 | Resource | Why It Is Needed |
 |----------|------------------|
 | **Namespace (`attendance`)** | Logical isolation, easier RBAC, quotas, and clean teardown of all resources together. |
-| **Deployment (4 replicas, rolling update)** | The API is stateless, so a Deployment is the right controller; multiple replicas give availability and the rolling strategy gives zero-downtime releases. |
+| **Deployment (4 replicas, rolling update)** | The API is stateless, so a Deployment is the right controller; four baseline replicas give availability across nodes and the rolling strategy gives zero-downtime releases. The HPA scales this out under load. |
 | **StatefulSet for PostgreSQL** | Databases need a **stable network identity** and **stable persistent storage**; a StatefulSet (vs. Deployment) guarantees both, with ordered, predictable pod identity (`attendance-db-0`). |
 | **Headless Service (DB)** | `clusterIP: None` gives the StatefulSet pod a stable DNS name for direct, reliable connections from the app. |
 | **ClusterIP Service (App)** | Provides a single stable internal endpoint that load-balances across the 4–8 app pods; not exposed externally by design. |

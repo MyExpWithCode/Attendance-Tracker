@@ -9,7 +9,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: at.naredla.space
+      http:
         paths:
           - path: /
             pathType: Prefix

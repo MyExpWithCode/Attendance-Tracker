@@ -102,6 +102,3 @@ were over-provisioning the cluster.
   `4 × 128Mi = 512Mi` to `2 × 96Mi = 192Mi` (~63% lower reserved memory at idle).
 - Tighter requests increase schedulable density, creating headroom to **reduce
   the node pool** via Cluster Autoscaler.
-
-> Numbers are reserved-capacity estimates from the proposed request changes, not
-> a billing figure. Validate against actual GKE billing if applied.
